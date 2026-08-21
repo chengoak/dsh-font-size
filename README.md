@@ -27,14 +27,24 @@ Adds a **Conversation font size** control to the **General settings** page of th
 ### 安装
 
 ```sh
-# 在 deepseek-harness 仓库内启动 dsh web（使用 workspace 源码）：
-pnpm dsh web --port 3080
+# 从 GitHub 安装（推荐）
+pnpm dsh plugin --profile web add github:chengoak/dsh-font-size
 
-# 链接当前插件到 web profile（已开发调试时）
-pnpm dsh plugin --profile web add link:/Users/li/dsh-font-size
+# 或本地开发（链接当前目录）
+pnpm dsh plugin --profile web add link:$(pwd)
 ```
 
-启动后打开 `http://127.0.0.1:3080/`，在「设置 → 通用设置」里即可看到「对话字体大小」一行。
+`lib/` 已 build 进 git，`pnpm` 会直接把 plugin 装到 web profile 并写入 bundle 列表。装完后 **重启 dsh web**（`pnpm dsh web --port 3080`），打开 `http://127.0.0.1:3080/`，在「设置 → 通用设置」里即可看到「对话字体大小」一行。
+
+### 卸载
+
+```sh
+# 用包名（scoped）
+pnpm dsh plugin --profile web remove @chengoak/dsh-font-size
+
+# 或简写
+pnpm dsh plugin --profile web remove dsh-font-size
+```
 
 ### 持久化
 
@@ -60,14 +70,24 @@ A standalone DSH Web GUI plugin that adds a **Conversation font size** slider (1
 ### Install
 
 ```sh
-# Run dsh web from inside the deepseek-harness workspace (uses workspace source):
-pnpm dsh web --port 3080
+# From GitHub (recommended)
+pnpm dsh plugin --profile web add github:chengoak/dsh-font-size
 
-# Link this plugin into the web profile (during development):
-pnpm dsh plugin --profile web add link:/Users/li/dsh-font-size
+# Or link a local checkout (during development)
+pnpm dsh plugin --profile web add link:$(pwd)
 ```
 
-Open `http://127.0.0.1:3080/`, go to **Settings → General**, the **Conversation font size** row will be there.
+`lib/` is committed to git, so `pnpm` installs the plugin straight into the web profile and patches the bundle roster. After install, **restart dsh web** (`pnpm dsh web --port 3080`) and open `http://127.0.0.1:3080/` — the **Conversation font size** row will be there in **Settings → General**.
+
+### Uninstall
+
+```sh
+# Scoped name
+pnpm dsh plugin --profile web remove @chengoak/dsh-font-size
+
+# Or short name
+pnpm dsh plugin --profile web remove dsh-font-size
+```
 
 ### Persistence
 
