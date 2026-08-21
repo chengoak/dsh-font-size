@@ -56,9 +56,28 @@ function applyFontSize(value: number): void {
     tag.dataset.plugin = '@chengoak/dsh-font-size'
     document.head.appendChild(tag)
   }
+  // Override the core's hard-coded `font-size: 16px` rules on chat bubbles
+  // and assistant text. The core CSS lives in core packages we can't
+  // change from a plugin, so we inject a global stylesheet at runtime with
+  // `!important` to win the cascade. The selectors target:
+  //   - User bubbles: any className ending in `_bubble` (CSS-Modules hash)
+  //   - Assistant text: the `<div data-streaming>` wrapper that AssistantMarkdown mounts
+  // Both rules are scoped to the chat transcript subtree by anchoring on the
+  // `[class*="_root"]` ancestor — the only place the chat view lives in the
+  // DOM — so we don't accidentally override unrelated UI in the future.
+  const px = `${value}px`
+  const lineUser = `calc(${px} * 1.5)`
+  const lineAssistant = `calc(${px} * 1.75)`
   tag.textContent = `
-    [style*="--ds-conversation-message-font-size"] {
-      --ds-conversation-message-font-size: ${value}px !important;
+    [class*="_root"] [class*="_bubble"],
+    [class*="_root"] [class*="_bubble"] * {
+      font-size: ${px} !important;
+      line-height: ${lineUser} !important;
+    }
+    [class*="_root"] [data-streaming],
+    [class*="_root"] [data-streaming] * {
+      font-size: ${px} !important;
+      line-height: ${lineAssistant} !important;
     }
   `
 }
