@@ -1,6 +1,6 @@
 {
   "name": "@chengoak/dsh-font-size",
-  "description": "DSH plugin that adds a global UI font-size scale control to the web settings page.",
+  "description": "DSH Web GUI plugin: adds a 'Conversation font size' slider (12-22 px) to Settings → General.",
   "version": "0.1.0",
   "type": "module",
   "main": "lib/index.js",
@@ -31,6 +31,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsdown",
+    "prepare": "pnpm build",
     "watch": "tsdown --watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
@@ -56,7 +57,7 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "README.zh.md"
+    "docs"
   ],
   "license": "MIT",
   "repository": {
