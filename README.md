@@ -28,22 +28,25 @@ Adds a **Conversation font size** control to the **General settings** page of th
 
 ```sh
 # 从 GitHub 安装（推荐）
+dsh plugin --profile web add github:chengoak/dsh-font-size
+
+# 如果你从 deepseek-harness 仓库源码里跑 dsh，把上面 `dsh` 替换成 `pnpm dsh`：
 pnpm dsh plugin --profile web add github:chengoak/dsh-font-size
 
 # 或本地开发（链接当前目录）
-pnpm dsh plugin --profile web add link:$(pwd)
+dsh plugin --profile web add link:$(pwd)
 ```
 
-`lib/` 已 build 进 git，`pnpm` 会直接把 plugin 装到 web profile 并写入 bundle 列表。装完后 **重启 dsh web**（`pnpm dsh web --port 3080`），打开 `http://127.0.0.1:3080/`，在「设置 → 通用设置」里即可看到「对话字体大小」一行。
+`lib/` 已 build 进 git，`pnpm` 会直接把 plugin 装到 web profile 并写入 bundle 列表。装完后 **重启 dsh web**（如 `dsh web --port 3080`），打开 `http://127.0.0.1:3080/`，在「设置 → 通用设置」里即可看到「对话字体大小」一行。
 
 ### 卸载
 
 ```sh
 # 用包名（scoped）
-pnpm dsh plugin --profile web remove @chengoak/dsh-font-size
+dsh plugin --profile web remove @chengoak/dsh-font-size
 
 # 或简写
-pnpm dsh plugin --profile web remove dsh-font-size
+dsh plugin --profile web remove dsh-font-size
 ```
 
 ### 持久化
@@ -71,22 +74,26 @@ A standalone DSH Web GUI plugin that adds a **Conversation font size** slider (1
 
 ```sh
 # From GitHub (recommended)
+dsh plugin --profile web add github:chengoak/dsh-font-size
+
+# If you run dsh from the deepseek-harness workspace source, replace
+# `dsh` above with `pnpm dsh`:
 pnpm dsh plugin --profile web add github:chengoak/dsh-font-size
 
 # Or link a local checkout (during development)
-pnpm dsh plugin --profile web add link:$(pwd)
+dsh plugin --profile web add link:$(pwd)
 ```
 
-`lib/` is committed to git, so `pnpm` installs the plugin straight into the web profile and patches the bundle roster. After install, **restart dsh web** (`pnpm dsh web --port 3080`) and open `http://127.0.0.1:3080/` — the **Conversation font size** row will be there in **Settings → General**.
+`lib/` is committed to git, so `pnpm` installs the plugin straight into the web profile and patches the bundle roster. After install, **restart dsh web** (e.g. `dsh web --port 3080`) and open `http://127.0.0.1:3080/` — the **Conversation font size** row will be there in **Settings → General**.
 
 ### Uninstall
 
 ```sh
 # Scoped name
-pnpm dsh plugin --profile web remove @chengoak/dsh-font-size
+dsh plugin --profile web remove @chengoak/dsh-font-size
 
 # Or short name
-pnpm dsh plugin --profile web remove dsh-font-size
+dsh plugin --profile web remove dsh-font-size
 ```
 
 ### Persistence
