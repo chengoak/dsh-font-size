@@ -1,0 +1,4 @@
+# bundle patch for dsh-font-size: inserts the plugin row into the web profile.
+- insert:
+    - id: ui-font-size
+      name: '@chengoak/dsh-font-size'
