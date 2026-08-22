@@ -61,8 +61,13 @@ function applyFontSize(value: number): void {
   // change from a plugin, so we inject a global stylesheet at runtime with
   // `!important` to win the cascade. The selectors target:
   //   - User bubbles: any className ending in `_bubble` (CSS-Modules hash)
-  //   - Assistant text: the `<div data-streaming>` wrapper that AssistantMarkdown mounts
-  // Both rules are scoped to the chat transcript subtree by anchoring on the
+  //   - Assistant text: any className containing `_markdown` (CSS-Modules
+  //     hash, e.g. `_markdown_1nba0_5`) — this is the actual class that
+  //     dsh-web's AssistantMarkdown renders into (verified against the real
+  //     DOM; the old `[data-streaming]` selector matched 0 elements).
+  //   - Streaming text: the `<div data-streaming>` wrapper (kept for safety,
+  //     in case some dsh-web builds still use it while streaming).
+  // All rules are scoped to the chat transcript subtree by anchoring on the
   // `[class*="_root"]` ancestor — the only place the chat view lives in the
   // DOM — so we don't accidentally override unrelated UI in the future.
   const px = `${value}px`
@@ -73,6 +78,11 @@ function applyFontSize(value: number): void {
     [class*="_root"] [class*="_bubble"] * {
       font-size: ${px} !important;
       line-height: ${lineUser} !important;
+    }
+    [class*="_root"] [class*="_markdown"],
+    [class*="_root"] [class*="_markdown"] * {
+      font-size: ${px} !important;
+      line-height: ${lineAssistant} !important;
     }
     [class*="_root"] [data-streaming],
     [class*="_root"] [data-streaming] * {
