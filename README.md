@@ -45,6 +45,12 @@ dsh plugin --profile web remove dsh-font-size
 
 `lib/` 已 build 进 git，安装无需构建授权。**从 deepseek-harness 源码仓库跑 dsh 时**，把上面 `dsh` 替换成 `pnpm dsh`。
 
+## 更新记录
+
+### v0.1.1（2026-08-22）
+
+- **修复：AI 回复正文字号不生效。** 原选择器锚定 `[data-streaming]`，但助手回复实际渲染在 `_markdown_*` 类下，匹配 0 个节点。新增 `[class*="_root"] [class*="_markdown"]` 规则，用户气泡与助手正文均生效，侧边栏/设置面板/输入框不受影响。
+
 ## 已知边界
 
 - 跨浏览器/跨设备不共享字号。
