@@ -4,11 +4,7 @@ import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type {} from '@deepseek-ai/dsh-client-ui-slots'
 import { en, zh, type FontSizeKey } from './locales.ts'
 import { FontSizeRow } from './FontSizeRow.tsx'
-
-const STORAGE_KEY = 'chengoak.dsh-font-size.messageFontSize'
-const DEFAULT_FONT_SIZE = 16
-const MIN_FONT_SIZE = 12
-const MAX_FONT_SIZE = 22
+import { clampFontSize, readStoredFontSize, writeStoredFontSize } from './storage.ts'
 
 export type { FontSizeKey } from './locales.ts'
 
@@ -23,28 +19,6 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
   // goes through the core slot renderer.
   interface SlotMap {
     'settings.general.item': { kind: 'list'; scope: 'root'; owner: object }
-  }
-}
-
-function clampFontSize(value: number): number {
-  if (Number.isNaN(value)) return DEFAULT_FONT_SIZE
-  return Math.max(MIN_FONT_SIZE, Math.min(MAX_FONT_SIZE, Math.round(value)))
-}
-
-function readStoredFontSize(): number {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return clampFontSize(raw === null ? DEFAULT_FONT_SIZE : Number(raw))
-  } catch {
-    return DEFAULT_FONT_SIZE
-  }
-}
-
-function writeStoredFontSize(value: number): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, String(value))
-  } catch {
-    // ignore
   }
 }
 

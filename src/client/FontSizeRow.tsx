@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import css from './FontSizeRow.module.css'
+import { readStoredFontSize } from './storage.ts'
 
 export interface FontSizeRowProps {
   initialFontSize: number
@@ -10,7 +11,11 @@ const MIN = 12
 const MAX = 22
 
 export function FontSizeRow({ initialFontSize, onChange }: FontSizeRowProps): JSX.Element {
-  const [fontSize, setFontSize] = useState(initialFontSize)
+  // The `initialFontSize` prop is captured when the slot entry is *registered*
+  // and dsh-web caches it across settings-panel opens, so it goes stale as
+  // soon as the user changes the value. Read the persisted value on mount
+  // instead so the slider always reflects the actual stored font size.
+  const [fontSize, setFontSize] = useState<number>(() => readStoredFontSize(initialFontSize))
 
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.currentTarget.value)
